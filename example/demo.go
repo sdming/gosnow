@@ -1,11 +1,7 @@
-gosnow
-======
+/*
+github.com/twitter/snowflake in golang
+*/
 
-snowflake in golang
-
----how to use 
-
-~~~golang
 package main
 
 import (
@@ -22,5 +18,3 @@ func main() {
 		fmt.Println(id)
 	}
 }
-
-~~~
