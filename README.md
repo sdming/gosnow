@@ -9,7 +9,7 @@ This is a fork of the upstream that replaces the the usage of panic() by returni
 package main
 
 import (
-    "github.com/0x6e6562/gosnow"
+    "github.com/sdming/gosnow"
     "fmt"
 )
 
