@@ -15,10 +15,10 @@ import (
 
 func main() {
 
-    v := gosnow.Default()
-    //v := gosnow.NewSnowFlake(100)
+    v,err := gosnow.Default()
+    //v, err := gosnow.NewSnowFlake(100)
     for i := 0; i < 10; i++ {
-        id := v.Next()
+        id, err := v.Next()
         fmt.Println(id)
     }
 }
