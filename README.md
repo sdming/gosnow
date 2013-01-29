@@ -1,26 +1,29 @@
 gosnow
 ======
 
-snowflake in golang
+gosnow is a snowflake implementation in golang.
 
----how to use 
+This is a fork of the upstream that replaces the the usage of panic() by returning errors instead.
 
 ~~~golang
 package main
 
 import (
-	"github.com/sdming/gosnow"
-	"fmt"
+    "github.com/sdming/gosnow"
+    "fmt"
 )
 
 func main() {
 
-	v := gosnow.Default()
-	//v := gosnow.NewSnowFlake(100)
-	for i := 0; i < 10; i++ {
-		id := v.Next()
-		fmt.Println(id)
-	}
+    v, err := gosnow.Default()
+    
+    // Alternatively you can set the worker id if you are running multiple snowflakes
+    // v, err := gosnow.NewSnowFlake(100)
+    
+    for i := 0; i < 10; i++ {
+        id, err := v.Next()
+        fmt.Println(id)
+    }
 }
 
 ~~~
