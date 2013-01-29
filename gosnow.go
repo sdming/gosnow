@@ -10,6 +10,7 @@ import (
 	"net"
 	"sync"
 	"time"
+	"fmt"
 )
 
 const (
@@ -40,7 +41,7 @@ func (sf *SnowFlake) uint64() uint64 {
 		(uint64(sf.sequence))
 }
 
-func (sf *SnowFlake) Next() uint64 {
+func (sf *SnowFlake) Next() (uint64, error) {
 	sf.lock.Lock()
 	defer sf.lock.Unlock()
 
@@ -55,21 +56,21 @@ func (sf *SnowFlake) Next() uint64 {
 	}
 
 	if ts < sf.lastTimestamp {
-		panic("invalid timestamp")
+		return 0, fmt.Errorf("Invalid timestamp: %v - precedes %v", ts, sf)
 	}
 	sf.lastTimestamp = ts
-	return sf.uint64()
+	return sf.uint64(),  nil
 }
 
-func Default() *SnowFlake {
+func Default() (*SnowFlake, error) {
 	return NewSnowFlake(DefaultWorkId())
 }
 
-func NewSnowFlake(workerId uint32) *SnowFlake {
+func NewSnowFlake(workerId uint32) (*SnowFlake, error) {
 	if workerId < 0 || workerId > MaxWorkerId {
-		panic("worker id is invalid")
+		return nil, fmt.Errorf("Worker id %v is invalid", workerId)
 	}
-	return &SnowFlake{workerId: workerId}
+	return &SnowFlake{workerId: workerId}, nil
 }
 
 func timestamp() uint64 {
