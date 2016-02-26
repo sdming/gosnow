@@ -79,7 +79,8 @@ func timestamp() uint64 {
 
 func tilNextMillis(ts uint64) uint64 {
 	i := timestamp()
-	for i < ts {
+	for i <= ts {
+		time.Sleep(100 * time.Microsecond)
 		i = timestamp()
 	}
 	return i
