@@ -3,7 +3,7 @@ gosnow
 
 gosnow is a snowflake implementation in golang.
 
-This is a fork of the upstream that replaces the the usage of panic() by returning errors instead.
+This is a fork of the upstream that replaces the usage of panic() by returning errors instead.
 
 ~~~golang
 package main
